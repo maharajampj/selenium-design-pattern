@@ -1,6 +1,6 @@
 package com.seleniumDesign.test.strategy;
 
-import com.seleniumDesign.PaymentFactory.PaymentFactory;
+import com.seleniumDesign.factory.PaymentFactory.PaymentFactory;
 import com.seleniumDesign.strategy.*;
 import com.seleniumDesign.test.srp.BaseTest;
 import org.testng.annotations.BeforeTest;

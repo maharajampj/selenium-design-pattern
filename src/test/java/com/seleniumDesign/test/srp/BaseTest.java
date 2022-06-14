@@ -1,11 +1,9 @@
 package com.seleniumDesign.test.srp;
 
 
-import com.seleniumDesign.Driverfactory.BrowserType;
-import com.seleniumDesign.Driverfactory.DriverFactory;
+import com.seleniumDesign.factory.Driverfactory.BrowserType;
+import com.seleniumDesign.factory.Driverfactory.DriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.Assert;
 import org.testng.annotations.*;
 
 /**

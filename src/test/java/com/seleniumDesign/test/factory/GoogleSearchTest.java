@@ -1,7 +1,7 @@
 package com.seleniumDesign.test.factory;
 
-import com.seleniumDesign.Pagefactory.GoogleFactory;
-import com.seleniumDesign.Pagefactory.GooglePage;
+import com.seleniumDesign.factory.Pagefactory.GoogleFactory;
+import com.seleniumDesign.factory.Pagefactory.GooglePage;
 import com.seleniumDesign.test.srp.BaseTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
