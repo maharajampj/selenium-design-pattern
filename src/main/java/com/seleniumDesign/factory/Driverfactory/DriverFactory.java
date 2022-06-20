@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,11 +36,14 @@ public class DriverFactory {
     private static final  Supplier<WebDriver> remoteDriverSupplier =()->
     {
         String host="localhost";
-        DesiredCapabilities cp=DesiredCapabilities.chrome();
+        DesiredCapabilities cp;
         WebDriver remoteWebDriver = null;
         if(System.getProperty("BROWSER")!=null&&System.getProperty("BROWSER").equalsIgnoreCase("firefox"))
         {
             cp=DesiredCapabilities.firefox();
+        }
+        else {
+            cp= DesiredCapabilities.chrome();
         }
         if(System.getProperty("HUB_HOST")!=null)
         {

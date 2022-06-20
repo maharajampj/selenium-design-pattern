@@ -1,0 +1,56 @@
+version: "3"
+services:
+  chrome:
+    image: seleniarm/node-chromium:4.0.0-beta-1-20210215
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "6900:5900"
+  firefox:
+    image: seleniarm/node-firefox:4.0.0-beta-1-20210215
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "7900:8900"
+
+  seleniarm-hub:
+    image: seleniarm/hub:4.0.0-beta-1-20210215
+    container_name: seleniarm-hub-4.0.0-beta-1-20210215
+
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+  Payment-tests:
+    image: maha/selenium-docker
+    container_name: payment-test-container
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - BROWSER=chrome
+      - HUB_HOST=seleniarm-hub
+      - MODULE=payment-module.xml
+    volumes:
+      - ./output/payment-test-output:/usr/share/seleniumDesignPattern/test-output
+
+  search-tests:
+    image: maha/selenium-docker
+    container_name: search-test-container
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - BROWSER=firefox
+      - HUB_HOST=seleniarm-hub
+      - MODULE=search-module.xml
+    volumes:
+      - ./output/search-test-output:/usr/share/seleniumDesignPattern/test-output
