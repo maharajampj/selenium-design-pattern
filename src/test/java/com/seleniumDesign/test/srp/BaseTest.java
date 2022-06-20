@@ -15,7 +15,7 @@ public class BaseTest
     @BeforeTest
     public void setUpdriver()
     {
-        driver= DriverFactory.getDriver(BrowserType.CHROME);
+        driver= DriverFactory.getDriver(BrowserType.REMOTE);
         driver.manage().window().maximize();
     }
 
@@ -23,6 +23,7 @@ public class BaseTest
     @AfterTest
     public void quitDriver()
     {
+        if(driver!=null)
         driver.quit();
     }
 }

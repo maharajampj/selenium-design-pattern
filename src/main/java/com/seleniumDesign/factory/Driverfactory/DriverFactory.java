@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -31,11 +32,32 @@ public class DriverFactory {
         return new FirefoxDriver();
     };
 
-
+    private static final  Supplier<WebDriver> remoteDriverSupplier =()->
+    {
+        String host="localhost";
+        DesiredCapabilities cp=DesiredCapabilities.chrome();
+        WebDriver remoteWebDriver = null;
+        if(System.getProperty("BROWSER")!=null&&System.getProperty("BROWSER").equalsIgnoreCase("firefox"))
+        {
+            cp=DesiredCapabilities.firefox();
+        }
+        if(System.getProperty("HUB_HOST")!=null)
+        {
+            host=System.getProperty("HUB_HOST");
+        }
+        String completeUrl="http://"+host+":4444/wd/hub";
+        try {
+            remoteWebDriver = new RemoteWebDriver(new URL(completeUrl),cp);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        return remoteWebDriver;
+    };
 
     static {
         driverMap.put(BrowserType.CHROME,chromeDriverSupplier);
         driverMap.put(BrowserType.FIREFOX,firefoxDriverSupplier);
+        driverMap.put(BrowserType.REMOTE,remoteDriverSupplier);
     }
 
     public static WebDriver getDriver(BrowserType type)
